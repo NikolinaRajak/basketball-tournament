@@ -11,15 +11,31 @@ function simulateGroup(array) {
             const second_team = array[j];
             let { winProbability1, winProbability2 } = calculateProbability(first_team.FIBARanking, second_team.FIBARanking);
             let { outcome1, outcome2 } = simulateGroupMatch(winProbability1, winProbability2);
-                console.log(first_team.Team + "(" + winProbability1 + ", " + outcome1 + ")" + " vs " + second_team.Team + "(" + winProbability2 + ", " + outcome2 + ")")
+            let { result1, result2 } = generateResult(outcome1 == outcome2);
+            let firstTeamsResult, secondTeamsResult;
+            if (outcome1 == 'win') {
+                firstTeamsResult = result1;
+                secondTeamsResult = result2;
+            } else {
+                firstTeamsResult = result2;
+                secondTeamsResult = result1;
+            }
+            console.log(first_team.Team + "(" + winProbability1 + ", " + outcome1 + ", " + firstTeamsResult + ")" + " vs " + second_team.Team + "(" + winProbability2 + ", " + outcome2 + ", " + secondTeamsResult + ")")
         }
     }
 }
 
 function generateResult(tie) {
+    let result1 = Math.round(Math.random() * 51) + 50;
+    let result2;
     
-
-
+    if (tie) {
+        result2 = result1;
+    } else {
+        result2 = result1 - Math.round(Math.random() * 21) - 1;
+    }
+    
+    return { result1, result2 };
 }
 
 function simulateGroupMatch(prob1, prob2) {
