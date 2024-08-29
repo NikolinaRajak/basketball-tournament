@@ -5,55 +5,48 @@ const a = data.A;
 console.log(a);
 
 function simulateGroup(array) {
+
     for (let i = 0; i < array.length - 1; i++) {
         const first_team = array[i];
         for (let j = i + 1; j < array.length; j++) {
             const second_team = array[j];
-            let { winProbability1, winProbability2 } = calculateProbability(first_team.FIBARanking, second_team.FIBARanking);
-            let { outcome1, outcome2 } = simulateGroupMatch(winProbability1, winProbability2);
-            let { result1, result2 } = generateResult(outcome1 == outcome2);
-            let firstTeamsResult, secondTeamsResult;
-            if (outcome1 == 'win') {
-                firstTeamsResult = result1;
-                secondTeamsResult = result2;
-            } else {
-                firstTeamsResult = result2;
-                secondTeamsResult = result1;
-            }
-            console.log(first_team.Team + "(" + winProbability1 + ", " + outcome1 + ", " + firstTeamsResult + ")" + " vs " + second_team.Team + "(" + winProbability2 + ", " + outcome2 + ", " + secondTeamsResult + ")")
+            let  winProbability = calculateProbability(first_team.FIBARanking, second_team.FIBARanking);
+            let { outcome1, outcome2 } = simulateGroupMatch(winProbability);
+            let { result1, result2 } = generateResult(outcome1);
+            console.log(first_team.Team + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + second_team.Team + "(" + (1- winProbability) + ", " + outcome2 + ", " + result2 + ")")
         }
     }
 }
 
-function generateResult(tie) {
-    let result1 = Math.round(Math.random() * 51) + 50;
-    let result2;
+function generateResult(outcome1) {
+    let genRes1 = Math.round(Math.random() * 51) + 50;
+    let genRes2 = genRes1 - Math.round(Math.random() * 21) - 1;
+
+    let result1, result2;
     
-    if (tie) {
-        result2 = result1;
+    if (outcome1 == 'win') {
+        result1 = genRes1;
+        result2 = genRes2;
     } else {
-        result2 = result1 - Math.round(Math.random() * 21) - 1;
+        result1 = genRes2;
+        result2 = genRes1;
     }
+
+    return { result1, result2 }
     
-    return { result1, result2 };
 }
 
-function simulateGroupMatch(prob1, prob2) {
+function simulateGroupMatch(winProbability) {
 
-    let random1 = Math.random();
-    let random2 = Math.random();
+    let random = Math.random();
     let outcome1, outcome2;
 
-    if (random1 <= prob1) {
+    if (random <= winProbability) {
         outcome1 = 'win';
+        outcome2 = 'loss';
     } else {
         outcome1 = 'loss';
-    }
-
-    if (random2 <= prob2) {
         outcome2 = 'win';
-    } else {
-        outcome2 = 'loss';
     }
 
     return { outcome1, outcome2 };
@@ -74,22 +67,9 @@ function calculateProbability(a, b) {
         winProbability = 0.75;
     }
 
-    // Assigning the win probabilities to 
-    // two variables (for the better and worse team)
-    let winProbability1, winProbability2;
-
-    if (a < b) {
-        winProbability1 = winProbability;
-        winProbability2 = 1 - winProbability
-    } else {
-        winProbability2 = winProbability;
-        winProbability1 = 1 - winProbability
-    }
-
-    return { winProbability1, winProbability2 }
+    return winProbability;
 
 }
-
 
 
 simulateGroup(a);
