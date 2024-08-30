@@ -26,5 +26,21 @@ class GroupPlacementEntry {
 
     }
 
+    getPoints() {
+        return this.points;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getScoredBaskets() {
+        return this.scoredBaskets;
+    }
+
+    getBasketDifference() {
+        return this.basketDifference;
+    }
+
 }
 module.exports = GroupPlacementEntry;
