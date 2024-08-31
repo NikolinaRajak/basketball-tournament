@@ -1,7 +1,8 @@
 class GroupPlacementEntry {
 
-    constructor(name) {
+    constructor(name, fibaRanking) {
         this.name = name;
+        this.fibaRanking = fibaRanking;
         this.wins = 0;
         this.losses = 0;
         this.points = 0;
@@ -40,6 +41,10 @@ class GroupPlacementEntry {
 
     getBasketDifference() {
         return this.basketDifference;
+    }
+
+    getFIBARanking(){
+        return this.fibaRanking;
     }
 
 }
