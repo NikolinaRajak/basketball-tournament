@@ -35,35 +35,48 @@ function simulateGroup(array, collectiveMatchHistory) {
         }
     }
     collectiveMatchHistory.concat(matchHistory)
-    // console.log(groupTable);
+    console.log("group table unsorted");
+
+    console.log(groupTable);
     console.log("-------------------------------------------");
 
 
+    console.log("group table sorted");
+
     groupTable.sort((a, b) => {
-        // if (a.getPoints() == b.getPoints()) {
-        //     for (let i = 0; i < matchHistory.length; i++) {
-        //         const mh = matchHistory[i];
-        //         //const firstTeamName = a.getName()
-        //         //const secondTeamName = b.getName()
+        if (a.getPoints() !== b.getPoints()) {
+            return b.getPoints() - a.getPoints();
+        }
+        const previousMatch = findMatch(a.getName(), b.getName(), matchHistory)
 
-        //         if(mh.getTeamName1() == a.getName() && mh.getTeamName2 == b.getName() ||
-        //         mh.getTeamName2() == b.getName() && mh.getTeamName1 == a.getName() ){  
+        if (previousMatch) {
+            if (a.getName() === previousMatch.getTeamName1() && previousMatch.getTeamResult1() > previousMatch.getTeamResult2()) {
+                return -1;
+            } else if (b.getName() === previousMatch.getTeamName1() && previousMatch.getTeamResult1() > previousMatch.getTeamResult2()) {
+                return 1;
+            } else if (a.getName() === previousMatch.getTeamName2() && previousMatch.getTeamResult2() > previousMatch.getTeamResult1()) {
+                return -1;
+            } else if (b.getName() === previousMatch.getTeamName2() && previousMatch.getTeamResult2() > previousMatch.getTeamResult1()) {
+                return 1;
+            }
+        }
 
-        //         let first = mh.getTeamResult1() > mh.getTeamResult2();
-        //         }else{
-        //             let second = first;
-        //         }
-        //     }
-        // } else {
-        return b.getPoints() - a.getPoints();
-        // }
+        return 0;
     });
+    console.log(groupTable);
 
-    // console.log(groupTable);
     return groupTable;
-    // console.log(matchHistory);
 }
 
+function findMatch(team1, team2, matchHistory) {
+    for (let match of matchHistory) {
+        if ((match.teamName1 === team1 && match.teamName2 === team2) ||
+            (match.teamName1 === team2 && match.teamName2 === team1)) {
+            return match;
+        }
+    }
+    return null; // Return null if no match is found
+}
 
 
 function generateResult(outcome1) {
@@ -170,13 +183,29 @@ function makeDrawList(groupA, groupB, groupC) {
 
 function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
 
-    let chosenOpponent = Math.round(Math.random()); // TODO incorporate match history
+    let chosenOpponent; // Math.round(Math.random()); // TODO incorporate match history
+    let firstMatch, secondMatch;
 
+    // Drafting the quarter finals
 
+    chosenOpponent = Math.round(Math.random());
+    firstMatch = findMatch(hatD[0].getName(), hatG[chosenOpponent].getName(), previousMatchHistory);
+    secondMatch = findMatch(hatD[0].getName(), hatG[1 - chosenOpponent].getName(), previousMatchHistory);
+    if (firstMatch || secondMatch) {
+        chosenOpponent = 1 - chosenOpponent;
+    }
     let quarterFinal1 = [hatD[0], hatG[chosenOpponent]];
-    let quarterFinal2 = [hatE[0], hatF[chosenOpponent]];
     let quarterFinal3 = [hatD[1], hatG[1 - chosenOpponent]];
+
+    chosenOpponent = Math.round(Math.random());
+    firstMatch = findMatch(hatE[0].getName(), hatF[chosenOpponent].getName(), previousMatchHistory);
+    secondMatch = findMatch(hatE[0].getName(), hatF[1 - chosenOpponent].getName(), previousMatchHistory);
+    if (firstMatch || secondMatch) {
+        chosenOpponent = 1 - chosenOpponent;
+    }
+    let quarterFinal2 = [hatE[0], hatF[chosenOpponent]];
     let quarterFinal4 = [hatE[1], hatF[1 - chosenOpponent]];
+
 
     let quarterFinalsMatchHistory = [];
     let semiFinalsMatchHistory = [];
