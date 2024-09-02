@@ -35,8 +35,20 @@ class GroupPlacementEntry {
         return this.name;
     }
 
+    getWins() {
+        return this.wins;
+    }
+
+    getLosses() {
+        return this.losses;
+    }
+
     getScoredBaskets() {
         return this.scoredBaskets;
+    }
+
+    getReceivedBaskets() {
+        return this.receivedBaskets;
     }
 
     getBasketDifference() {
