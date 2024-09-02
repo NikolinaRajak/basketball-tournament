@@ -215,7 +215,7 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
 
     chosenOpponent = Math.round(Math.random());
     firstMatch = findMatch(hatD[0].getName(), hatG[chosenOpponent].getName(), previousMatchHistory);
-    secondMatch = findMatch(hatD[0].getName(), hatG[1 - chosenOpponent].getName(), previousMatchHistory);
+    secondMatch = findMatch(hatD[1].getName(), hatG[1 - chosenOpponent].getName(), previousMatchHistory);
     if (firstMatch || secondMatch) {
         chosenOpponent = 1 - chosenOpponent;
     }
@@ -224,7 +224,7 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
 
     chosenOpponent = Math.round(Math.random());
     firstMatch = findMatch(hatE[0].getName(), hatF[chosenOpponent].getName(), previousMatchHistory);
-    secondMatch = findMatch(hatE[0].getName(), hatF[1 - chosenOpponent].getName(), previousMatchHistory);
+    secondMatch = findMatch(hatE[1].getName(), hatF[1 - chosenOpponent].getName(), previousMatchHistory);
     if (firstMatch || secondMatch) {
         chosenOpponent = 1 - chosenOpponent;
     }
