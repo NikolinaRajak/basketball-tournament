@@ -248,7 +248,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     let { result1, result2 } = generateResult(outcome1);
 
     quarterFinalsMatchHistory.push(new MatchHistoryEntry(quarterFinal1[0].getName(), quarterFinal1[1].getName(), result1, result2));
-    // console.log(quarterFinal1[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + quarterFinal1[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win')
         semiFinals1.push(quarterFinal1[0])
@@ -261,14 +260,11 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     quarterFinalsMatchHistory.push(new MatchHistoryEntry(quarterFinal2[0].getName(), quarterFinal2[1].getName(), result1, result2));
-    // console.log(quarterFinal2[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + quarterFinal2[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win')
         semiFinals1.push(quarterFinal2[0])
     else
         semiFinals1.push(quarterFinal2[1])
-
-    // console.log(semiFinals1);
 
     // third quarter final match
     winProbability = calculateProbability(quarterFinal3[0].getFIBARanking(), quarterFinal3[1].getFIBARanking());
@@ -276,7 +272,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     quarterFinalsMatchHistory.push(new MatchHistoryEntry(quarterFinal3[0].getName(), quarterFinal3[1].getName(), result1, result2));
-    // console.log(quarterFinal3[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + quarterFinal3[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win')
         semiFinals2.push(quarterFinal3[0])
@@ -289,14 +284,12 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     quarterFinalsMatchHistory.push(new MatchHistoryEntry(quarterFinal4[0].getName(), quarterFinal4[1].getName(), result1, result2));
-    // console.log(quarterFinal4[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + quarterFinal4[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win')
         semiFinals2.push(quarterFinal4[0])
     else
         semiFinals2.push(quarterFinal4[1])
 
-    // console.log(semiFinals2);
 
     // ----------- Semi finals -----------
 
@@ -306,7 +299,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     semiFinalsMatchHistory.push(new MatchHistoryEntry(semiFinals1[0].getName(), semiFinals1[1].getName(), result1, result2));
-    // console.log(semiFinals1[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + semiFinals1[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win') {
         finals.push(semiFinals1[0])
@@ -323,7 +315,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     semiFinalsMatchHistory.push(new MatchHistoryEntry(semiFinals2[0].getName(), semiFinals2[1].getName(), result1, result2));
-    // console.log(semiFinals2[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + semiFinals2[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
 
     if (outcome1 === 'win') {
         finals.push(semiFinals2[0])
@@ -334,7 +325,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
         thirdPlaceMatch.push(semiFinals2[0])
     }
 
-    // console.log(finals);
 
     // ----------- Third Place Match -----------
     winProbability = calculateProbability(thirdPlaceMatch[0].getFIBARanking(), thirdPlaceMatch[1].getFIBARanking());
@@ -342,9 +332,6 @@ function simulateFinals(hatD, hatE, hatF, hatG, previousMatchHistory) {
     ({ result1, result2 } = generateResult(outcome1));
 
     let thirdPlaceMatchResult = new MatchHistoryEntry(thirdPlaceMatch[0].getName(), thirdPlaceMatch[1].getName(), result1, result2);
-    // console.log(thirdPlaceMatch[0].getName() + "(" + winProbability + ", " + outcome1 + ", " + result1 + ")" + " vs " + thirdPlaceMatch[1].getName() + "(" + (1 - winProbability) + ", " + outcome2 + ", " + result2 + ")")
-
-    // console.log(thirdPlaceMatchResult, "Result of the third place match");
 
     // ----------- Finals -----------
     winProbability = calculateProbability(finals[0].getFIBARanking(), finals[1].getFIBARanking());
